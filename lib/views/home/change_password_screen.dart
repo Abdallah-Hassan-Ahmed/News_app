@@ -43,84 +43,97 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         },
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: const Color(0xFFF5F5F5),
-            appBar: AppBar(
-              title: const Text('Change Password'),
-              backgroundColor: Colors.deepPurple,
-              foregroundColor: Colors.white,
-              elevation: 1,
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (_) => const HomeScreen()),
-                  );
-                },
+            body: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFF8E2DE2), Color(0xFF4A00E0)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
               ),
-            ),
-            body: Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      const Icon(Icons.lock_reset, size: 80, color: Colors.deepPurple),
-                      const SizedBox(height: 20),
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    elevation: 6,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.lock_reset, size: 70, color: Colors.deepPurple),
+                            const SizedBox(height: 10),
+                            const Text(
+                              "Change Password",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.deepPurple,
+                              ),
+                            ),
+                            const SizedBox(height: 30),
 
-                      PasswordFormField(
-                        controller: oldPasswordController,
-                        label: "Old Password",
-                        validator: (val) => val == null || val.isEmpty
-                            ? 'Please enter old password'
-                            : null,
+                            PasswordFormField(
+                              controller: oldPasswordController,
+                              label: "Old Password",
+                              validator: (val) => val == null || val.isEmpty
+                                  ? 'Please enter old password'
+                                  : null,
+                            ),
+
+                            const SizedBox(height: 16),
+
+                            PasswordFormField(
+                              controller: newPasswordController,
+                              label: "New Password",
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return 'Please enter new password';
+                                } else if (val.length < 6) {
+                                  return 'Password must be at least 6 characters';
+                                }
+                                return null;
+                              },
+                            ),
+
+                            const SizedBox(height: 16),
+
+                            PasswordFormField(
+                              controller: confirmPasswordController,
+                              label: "Confirm Password",
+                              validator: (val) {
+                                if (val != newPasswordController.text) {
+                                  return 'Passwords do not match';
+                                }
+                                return null;
+                              },
+                            ),
+
+                            const SizedBox(height: 30),
+
+                            CustomButton(
+                              text: "Change Password",
+                              icon: Icons.save,
+                              isLoading: state is ChangePasswordLoading,
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  ChangePasswordCubit.get(context).changePassword(
+                                    oldPassword: oldPasswordController.text.trim(),
+                                    newPassword: newPasswordController.text.trim(),
+                                  );
+                                }
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-
-                      const SizedBox(height: 16),
-
-                      PasswordFormField(
-                        controller: newPasswordController,
-                        label: "New Password",
-                        validator: (val) {
-                          if (val == null || val.isEmpty) {
-                            return 'Please enter new password';
-                          } else if (val.length < 6) {
-                            return 'Password must be at least 6 characters';
-                          }
-                          return null;
-                        },
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      PasswordFormField(
-                        controller: confirmPasswordController,
-                        label: "Confirm Password",
-                        validator: (val) {
-                          if (val != newPasswordController.text) {
-                            return 'Passwords do not match';
-                          }
-                          return null;
-                        },
-                      ),
-
-                      const SizedBox(height: 30),
-
-                      CustomButton(
-                        text: "Change Password",
-                        icon: Icons.save,
-                        isLoading: state is ChangePasswordLoading,
-                        onPressed: () {
-                          if (formKey.currentState!.validate()) {
-                            ChangePasswordCubit.get(context).changePassword(
-                              oldPassword: oldPasswordController.text.trim(),
-                              newPassword: newPasswordController.text.trim(),
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),

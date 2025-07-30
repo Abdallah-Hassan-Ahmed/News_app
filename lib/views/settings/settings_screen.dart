@@ -6,7 +6,7 @@ import 'package:news_app/views/home/home_screen.dart';
 import 'package:news_app/views/login_screen.dart';
 import 'package:news_app/cubits/auth/auth_cubit.dart';
 import 'package:news_app/cubits/auth/auth_state.dart';
-import 'package:news_app/views/home/saved_articles_screen.dart'; // ✅ تأكد أنك عملت الصفحة دي
+import 'package:news_app/views/home/saved_articles_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -37,88 +37,123 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Settings"),
-        backgroundColor: Colors.deepPurple,
-        foregroundColor: Colors.white,
-      ),
-      body: BlocConsumer<AuthCubit, AuthState>(
-        listener: (context, state) {
-          if (state is AuthLoggedOut) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => const LoginScreen()),
-              (route) => false,
-            );
-          }
-        },
-        builder: (context, state) {
-          if (state is AuthSuccess) {
-            final currentUser = state.user;
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF4A148C),
+              Color(0xFF7B1FA2),
+              Color(0xFF9C27B0),
+              Color(0xFFBA68C8),
+              Color(0xFFE1BEE7),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.0, 0.3, 0.6, 0.8, 1.0],
+            tileMode: TileMode.clamp,
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: BlocConsumer<AuthCubit, AuthState>(
+              listener: (context, state) {
+                if (state is AuthLoggedOut) {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                    (route) => false,
+                  );
+                }
+              },
+              builder: (context, state) {
+                if (state is AuthSuccess) {
+                  final currentUser = state.user;
 
-            return ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                ListTile(
-                  leading: const Icon(Icons.person),
-                  title: const Text("Update Profile"),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => UpdateProfileScreen(user: currentUser),
+                  return Card(
+                    color: const Color.fromARGB(255, 220, 219, 219),
+                    elevation: 8,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Settings",
+                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  color: Colors.deepPurple,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          const SizedBox(height: 16),
+                          ListTile(
+                            leading: const Icon(Icons.person),
+                            title: const Text("Update Profile"),
+                            trailing: const Icon(Icons.arrow_forward_ios),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => UpdateProfileScreen(user: currentUser),
+                                ),
+                              );
+                            },
+                          ),
+                          const Divider(),
+                          ListTile(
+                            leading: const Icon(Icons.lock),
+                            title: const Text("Change Password"),
+                            trailing: const Icon(Icons.arrow_forward_ios),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const ChangePasswordScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                          const Divider(),
+                          ListTile(
+                            leading: const Icon(Icons.bookmark),
+                            title: const Text("Saved Articles"),
+                            trailing: const Icon(Icons.arrow_forward_ios),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => const SavedArticlesScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                          const Divider(),
+                          ListTile(
+                            leading: const Icon(Icons.logout),
+                            title: const Text("Logout"),
+                            trailing: const Icon(Icons.arrow_forward_ios),
+                            onTap: () => _confirmLogout(context),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.lock),
-                  title: const Text("Change Password"),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.push(
+                    ),
+                  );
+                } else {
+                  Future.microtask(() {
+                    Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(
-                        builder: (_) => const ChangePasswordScreen(),
-                      ),
+                      MaterialPageRoute(builder: (_) => const LoginScreen()),
                     );
-                  },
-                ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.bookmark),
-                  title: const Text("Saved Articles"),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const SavedArticlesScreen(),
-                      ),
-                    );
-                  },
-                ),
-                const Divider(),
-                ListTile(
-                  leading: const Icon(Icons.logout),
-                  title: const Text("Logout"),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () => _confirmLogout(context),
-                ),
-              ],
-            );
-          } else {
-            Future.microtask(() {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const LoginScreen()),
-              );
-            });
-            return const SizedBox();
-          }
-        },
+                  });
+                  return const SizedBox();
+                }
+              },
+            ),
+          ),
+        ),
       ),
     );
   }

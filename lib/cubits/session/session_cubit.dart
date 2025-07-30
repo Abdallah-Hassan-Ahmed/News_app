@@ -19,38 +19,83 @@ class SessionCubit extends Cubit<SessionState> {
   SessionCubit() : super(SessionInitial());
 
   static const _sessionKey = "user_session";
-  static const _sessionDurationInMinutes = 60;
+  static const _sessionDurationInMinutes = 1440; // يوم واحد
 
-  Future<void> checkSession() async {
+  void checkSession() async {
     final prefs = await SharedPreferences.getInstance();
     final sessionJson = prefs.getString(_sessionKey);
 
     if (sessionJson == null) {
+      print("🚫 No session data found");
       emit(SessionUnauthenticated());
       return;
     }
 
     try {
       final sessionData = jsonDecode(sessionJson);
-      final loginTime = DateTime.tryParse(sessionData['loginTime'] ?? '');
       final userData = sessionData['user'];
+      final loginTimeStr = sessionData['loginTime'];
 
-      if (userData == null || loginTime == null) {
+      if (userData == null || loginTimeStr == null) {
+        print("❌ userData or loginTime is missing");
         emit(SessionUnauthenticated());
         return;
       }
 
+      final loginTime = DateTime.parse(loginTimeStr);
       final now = DateTime.now();
-      final expired =
-          now.difference(loginTime).inMinutes > _sessionDurationInMinutes;
 
-      if (expired) {
-        await clearSession();
+      final difference = now.difference(loginTime).inMinutes;
+      print("🕒 Session age: $difference minutes");
+
+      if (difference > _sessionDurationInMinutes) {
+        print("⏰ Session expired");
+        emit(SessionUnauthenticated());
       } else {
         final user = UserModel.fromJson(userData);
         emit(SessionAuthenticated(user));
       }
     } catch (e) {
+      print("❌ Error reading session: $e");
+      emit(SessionUnauthenticated());
+    }
+  }
+
+  void updateUser(UserModel updatedUser) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final sessionJson = prefs.getString(_sessionKey);
+    if (sessionJson == null) {
+      print("🚫 sessionJson is null");
+      emit(SessionUnauthenticated());
+      return;
+    }
+
+    try {
+      final sessionData = jsonDecode(sessionJson);
+      final loginTime = sessionData['loginTime'];
+
+      print("📢 Updating session user...");
+      print("🔸 Login time: $loginTime");
+      print("🔸 Updated user: ${updatedUser.toJson()}");
+
+      if (loginTime == null) {
+        print("❌ loginTime is null");
+        emit(SessionUnauthenticated());
+        return;
+      }
+
+      final updatedSession = {
+        "user": updatedUser.toJson(),
+        "loginTime": loginTime,
+      };
+
+      await prefs.setString(_sessionKey, jsonEncode(updatedSession));
+
+      print("✅ Session updated successfully");
+      emit(SessionAuthenticated(updatedUser));
+    } catch (e) {
+      print("❌ Error updating session: $e");
       emit(SessionUnauthenticated());
     }
   }

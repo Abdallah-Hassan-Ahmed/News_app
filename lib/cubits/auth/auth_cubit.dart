@@ -18,9 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
     if (user != null) {
       final sessionCubit =
           BlocProvider.of<SessionCubit>(navigatorKey.currentContext!);
-
       await sessionCubit.setSession(user, rememberMe: rememberMe);
-
       emit(AuthSuccess(user));
     } else {
       emit(AuthError("Email or password is incorrect"));
@@ -34,9 +32,6 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
     required String securityQuestion,
     required String securityAnswer,
-    String? phoneNumber,
-    DateTime? dateOfBirth,
-    String? profileImagePath,
   }) async {
     emit(AuthLoading());
 
@@ -53,9 +48,6 @@ class AuthCubit extends Cubit<AuthState> {
       lastName: lastName,
       email: email,
       passwordHash: '',
-      phoneNumber: phoneNumber,
-      dateOfBirth: dateOfBirth,
-      profileImage: profileImagePath,
       createdAt: DateTime.now(),
       securityQuestion: securityQuestion,
       securityAnswer: securityAnswer,
@@ -69,6 +61,9 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     final result = await _authService.updateUser(updatedUser);
     if (result != null) {
+      final sessionCubit =
+          BlocProvider.of<SessionCubit>(navigatorKey.currentContext!);
+      sessionCubit.updateUser(result);
       emit(AuthSuccess(result));
     } else {
       emit(AuthError("Failed to update profile"));
