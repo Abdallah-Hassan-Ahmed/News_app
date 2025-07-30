@@ -90,4 +90,35 @@ class LocalAuthService {
     await _saveUsers(users);
     return true;
   }
+
+  Future<bool> verifyPassword(String email, String password) async {
+  final users = await _getUsers();
+  final user = users.firstWhereOrNull((u) => u.email == email);
+  if (user == null) return false;
+
+  final hashed = _hashPassword(password, user.id);
+  return hashed == user.passwordHash;
+}
+
+Future<bool> changePassword(String email, String newPassword) async {
+  final users = await _getUsers();
+  final index = users.indexWhere((u) => u.email == email);
+  if (index == -1) return false;
+
+  final user = users[index];
+  final hashed = _hashPassword(newPassword, user.id);
+  users[index] = user.copyWith(passwordHash: hashed);
+
+  await _saveUsers(users);
+  return true;
+}
+ Future<UserModel?> getCurrentUser() async {
+  final prefs = await SharedPreferences.getInstance();
+  final userId = prefs.getString(currentUserKey);
+  if (userId == null) return null;
+
+  final users = await _getUsers();
+  return users.firstWhereOrNull((u) => u.id == userId);
+}
+
 }

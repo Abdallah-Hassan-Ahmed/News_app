@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubits/bookmarks/bookmarks_cubit.dart';
+import 'package:news_app/cubits/change%20password/change_password_cubit.dart';
 import 'package:news_app/cubits/news/list_view_cubit.dart';
 import 'package:news_app/services/news_servic.dart';
 import 'views/session_check_screen.dart';
@@ -38,7 +39,9 @@ class NewsApp extends StatelessWidget {
         BlocProvider<BookmarksCubit>(
   create: (_) => BookmarksCubit(),
 ),
-
+//  BlocProvider<ChangePasswordCubit>(
+//   create: (_) => ChangePasswordCubit(),
+// ),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,

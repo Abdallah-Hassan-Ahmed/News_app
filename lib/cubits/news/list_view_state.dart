@@ -7,7 +7,7 @@ final class ListVeiwInitial extends ListVeiwState {}
 final class ListVeiwLoding extends ListVeiwState {}
 
 class ListVeiwSaccess extends ListVeiwState {
-  final List<ArticleModel> articles; // ✅ لازم تضيف الفيلد ده
-  ListVeiwSaccess(this.articles);    // ✅ وتمريره من الكونستركتور
+  final List<ArticleModel> articles; 
+  ListVeiwSaccess(this.articles);    
 }
 final class ListVeiwFailure extends ListVeiwState {}
