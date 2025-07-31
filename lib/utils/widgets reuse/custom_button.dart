@@ -17,6 +17,7 @@ class CustomButton extends StatelessWidget {
   });
 
   @override
+
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity, // Make button full width

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/views/login_screen.dart';
-import '../../cubits/auth/auth_cubit.dart';
-import '../../cubits/auth/auth_state.dart';
-import '../../widgets/form/custom_text_form_field.dart';
-import '../../widgets/form/password_form_field.dart';
-import '../../widgets/form/custom_button.dart';
-import '../../utils/validation_utils.dart';
+import 'package:news_app/views/auth%20view/login_screen.dart';
+import '../../../cubits/auth/auth_cubit.dart';
+import '../../../cubits/auth/auth_state.dart';
+import '../../utils/widgets reuse/custom_text_form_field.dart';
+import '../../utils/widgets reuse/password_form_field.dart';
+import '../../utils/widgets reuse/custom_button.dart';
+import '../../../utils/validation_utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

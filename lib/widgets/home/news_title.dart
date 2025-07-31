@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/cubits/bookmarks/bookmarks_cubit.dart';
-import 'package:news_app/views/home/Article_Detail_View.dart';
+import 'package:news_app/views/home%20view/article_detail_view.dart';
 
 class NewsTile extends StatelessWidget {
   const NewsTile({

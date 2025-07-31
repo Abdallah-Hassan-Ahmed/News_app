@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:news_app/views/login_screen.dart';
+import 'package:news_app/views/auth%20view/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     _shineController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
-    )..repeat(); // تكرار دائم للمعان
+    )..repeat(); 
 
     _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _textController, curve: Curves.easeOutExpo),
@@ -86,7 +86,6 @@ Image.asset(
   width: 240,
   height: 200,
 ),
-              // const SizedBox(height: 20),
               ScaleTransition(
                 scale: _scaleAnimation,
                 child: AnimatedBuilder(

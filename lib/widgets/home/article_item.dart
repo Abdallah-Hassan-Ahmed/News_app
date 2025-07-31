@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/models/article_model.dart';
-import 'package:news_app/views/home/article_detail_screen.dart';
+import 'package:news_app/widgets/home/article_card.dart';
 
 
 class ArticleItem extends StatelessWidget {
@@ -14,7 +14,7 @@ class ArticleItem extends StatelessWidget {
       onTap: () {
         Navigator.push(context,
           MaterialPageRoute(
-            builder: (context) => ArticleDetailScreen(article: article),
+            builder: (context) => ArticleCard(article: article),
           ),
         );
       },
@@ -67,4 +67,3 @@ class ArticleItem extends StatelessWidget {
     );
   }
 }
- 

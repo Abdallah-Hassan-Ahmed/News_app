@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubits/change%20password/change_password_cubit.dart';
 import 'package:news_app/cubits/change%20password/change_password_state.dart';
 import 'package:news_app/services/local_auth_service.dart';
-import 'package:news_app/views/home/home_view.dart';
-import 'package:news_app/widgets/form/custom_button.dart';
-import 'package:news_app/widgets/form/password_form_field.dart';
+import 'package:news_app/views/home%20view/home_view.dart';
+import 'package:news_app/utils/widgets%20reuse/custom_button.dart';
+import 'package:news_app/utils/widgets%20reuse/password_form_field.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});

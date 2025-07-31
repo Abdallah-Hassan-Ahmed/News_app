@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/models/category_models.dart';
-import 'package:news_app/views/home/categries_viwes.dart';
+import 'package:news_app/views/home%20view/categries_views.dart';
 
-class CategoriesListView extends StatefulWidget {
-  const CategoriesListView({super.key});
+class CategoriesList extends StatefulWidget {
+  const CategoriesList({super.key});
 
   @override
-  State<CategoriesListView> createState() => _CategoriesListViewState();
+  State<CategoriesList> createState() => _CategoriesListState();
 }
 
-class _CategoriesListViewState extends State<CategoriesListView> {
+class _CategoriesListState extends State<CategoriesList> {
   final List<CategoryModel> categories = [
     CategoryModel(categoryName: 'business', image: 'assets/business.jpg'),
     CategoryModel(categoryName: 'entertainment', image: 'assets/entertainment.jpg'),
@@ -25,7 +25,7 @@ class _CategoriesListViewState extends State<CategoriesListView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100, // بدل double.infinity لتجنب الخطأ
+      height: 100, 
       width: double.infinity,
       decoration: const BoxDecoration(
         gradient: LinearGradient(

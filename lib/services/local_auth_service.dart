@@ -1,4 +1,3 @@
-// ✅ services/local_auth_service.dart
 import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +16,6 @@ class LocalAuthService {
     return decoded.map((e) => UserModel.fromJson(e)).toList();
   }
 
-  // ✅ Public getter to expose user list outside
   Future<List<UserModel>> getUsers() => _getUsers();
 
   Future<void> _saveUsers(List<UserModel> users) async {
@@ -112,7 +110,7 @@ Future<bool> changePassword(String email, String newPassword) async {
   await _saveUsers(users);
   return true;
 }
- Future<UserModel?> getCurrentUser() async {
+Future<UserModel?> getCurrentUser() async {
   final prefs = await SharedPreferences.getInstance();
   final userId = prefs.getString(currentUserKey);
   if (userId == null) return null;

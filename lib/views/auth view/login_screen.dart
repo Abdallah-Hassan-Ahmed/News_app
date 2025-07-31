@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/views/forgot_password_screen.dart';
-import 'package:news_app/views/home/home_view.dart';
-import 'package:news_app/views/register_screen.dart';
-import '../../cubits/auth/auth_cubit.dart';
-import '../../cubits/auth/auth_state.dart';
-import '../../utils/validation_utils.dart'; // تم استيراد ملف الفاليديشن
-import '../../widgets/form/custom_text_form_field.dart';
-import '../../widgets/form/password_form_field.dart';
-import '../../widgets/form/custom_button.dart';
+import 'package:news_app/views/auth%20view/forgot_password_screen.dart';
+import 'package:news_app/views/home%20view/home_view.dart';
+import 'package:news_app/views/auth%20view/register_screen.dart';
+import '../../../cubits/auth/auth_cubit.dart';
+import '../../../cubits/auth/auth_state.dart';
+import '../../../utils/validation_utils.dart';
+import '../../utils/widgets reuse/custom_text_form_field.dart';
+import '../../utils/widgets reuse/password_form_field.dart';
+import '../../utils/widgets reuse/custom_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -93,12 +93,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             label: "Email",
                             controller: emailController,
                             keyboardType: TextInputType.emailAddress,
-                            validator: ValidationUtils.validateEmail, // استخدام الفاليديشن من الملف الخارجي
+                            validator: ValidationUtils.validateEmail, 
                           ),
                           const SizedBox(height: 16),
                           PasswordFormField(
                             controller: passwordController,
-                            validator: ValidationUtils.validatePassword, // استخدام الفاليديشن من الملف الخارجي
+                            validator: ValidationUtils.validatePassword,
                           ),
                           const SizedBox(height: 8),
                           Row(

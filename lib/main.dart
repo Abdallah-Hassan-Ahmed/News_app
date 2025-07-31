@@ -6,13 +6,13 @@ import 'package:news_app/cubits/change%20password/change_password_cubit.dart';
 import 'package:news_app/cubits/forget%20password/forgot_password_cubit.dart';
 import 'package:news_app/cubits/news/list_view_cubit.dart';
 import 'package:news_app/cubits/session/session_cubit.dart';
+import 'package:news_app/cubits/session/session_state.dart';
 import 'package:news_app/services/local_auth_service.dart';
 import 'package:news_app/services/news_servic.dart';
-import 'package:news_app/views/home/home_view.dart';
+import 'package:news_app/views/home%20view/home_view.dart';
 import 'package:news_app/views/welcome/welcome_screen.dart';
 import 'package:dio/dio.dart';
 
-// المفتاح العالمي للتنقل
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
@@ -56,15 +56,12 @@ class NewsApp extends StatelessWidget {
         ),
         home: BlocBuilder<SessionCubit, SessionState>(
           builder: (context, state) {
-            // إذا كان المستخدم مسجل الدخول، انتقل مباشرة إلى HomeScreen
             if (state is SessionAuthenticated) {
               return const HomeScreen();
             }
-            // إذا لم يكن مسجل الدخول، اعرض WelcomeScreen
             else if (state is SessionUnauthenticated) {
               return const SplashScreen();
             }
-            // أثناء التحميل، اعرض شاشة تحميل
             else {
               return const Scaffold(
                 body: Center(

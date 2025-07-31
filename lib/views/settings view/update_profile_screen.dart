@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubits/session/session_cubit.dart';
-import 'package:news_app/views/home/home_view.dart';
-import '../../widgets/form/custom_text_form_field.dart';
-import '../../widgets/form/custom_button.dart';
+import 'package:news_app/views/home%20view/home_view.dart';
+import '../../utils/widgets reuse/custom_text_form_field.dart';
+import '../../utils/widgets reuse/custom_button.dart';
 import '../../models/user_model.dart';
 import '../../cubits/auth/auth_cubit.dart';
 import '../../cubits/auth/auth_state.dart';

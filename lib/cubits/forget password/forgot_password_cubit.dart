@@ -1,23 +1,10 @@
-// ✅ cubits/auth/forgot_password_cubit.dart
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/cubits/forget%20password/forget_password_state.dart';
 import 'package:news_app/services/local_auth_service.dart';
 import 'package:news_app/models/user_model.dart';
 
-abstract class ForgotPasswordState {}
 
-class ForgotPasswordInitial extends ForgotPasswordState {}
-class ForgotPasswordLoading extends ForgotPasswordState {}
-class ForgotPasswordShowSecurityQuestion extends ForgotPasswordState {
-  final String question;
-  ForgotPasswordShowSecurityQuestion(this.question);
-}
-class ForgotPasswordSuccess extends ForgotPasswordState {}
-class ForgotPasswordResetDone extends ForgotPasswordState {}
-class ForgotPasswordError extends ForgotPasswordState {
-  final String message;
-  ForgotPasswordError(this.message);
-}
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   final LocalAuthService _authService;

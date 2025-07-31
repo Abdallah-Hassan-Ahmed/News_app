@@ -10,7 +10,7 @@ class ArticleModel {
   String source;
   String? author;
   String url;
-  String category; // <-- شيل final عشان نقدر نعدله
+  String category;
   bool isBookmarked;
 
   ArticleModel({
@@ -38,7 +38,7 @@ class ArticleModel {
       source: json['source']['name'] ?? '',
       author: json['author'],
       url: json['url'] ?? '',
-      category: '', // هتحط القيمة لاحقًا
+      category: '',
     );
   }
 

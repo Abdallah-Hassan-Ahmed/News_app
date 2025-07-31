@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/cubits/forget%20password/forget_password_state.dart';
 import 'package:news_app/cubits/forget%20password/forgot_password_cubit.dart';
-import 'package:news_app/views/login_screen.dart';
-import '../../widgets/form/custom_text_form_field.dart';
-import '../../widgets/form/custom_button.dart';
-import '../../utils/validation_utils.dart';
+import 'package:news_app/views/auth%20view/login_screen.dart';
+import '../../utils/widgets reuse/custom_text_form_field.dart';
+import '../../utils/widgets reuse/custom_button.dart';
+import '../../../utils/validation_utils.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});

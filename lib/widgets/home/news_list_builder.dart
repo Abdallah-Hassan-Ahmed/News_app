@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubits/news/list_view_cubit.dart';
-import 'package:news_app/widgets/newes_list_viwes.dart';
+import 'package:news_app/widgets/home/newes_list.dart';
 
 class NewsListViewBuilder extends StatefulWidget {
   final String category;
@@ -16,7 +16,6 @@ class _NewsListViewBuilderState extends State<NewsListViewBuilder> {
   @override
   void initState() {
     super.initState();
-    // نطلب الأخبار مرة واحدة فقط عند بناء الـ Widget
     context.read<ListVeiwCubit>().getNews(category: widget.category);
   }
 
@@ -29,7 +28,7 @@ class _NewsListViewBuilderState extends State<NewsListViewBuilder> {
             child: Center(child: CircularProgressIndicator()),
           );
         } else if (state is ListVeiwSaccess) {
-          return NewesListViwes(articles: state.articles);
+          return NewesList(articles: state.articles);
         } else if (state is ListVeiwFailure) {
           return const SliverToBoxAdapter(
             child: Center(child: Text('❌ Failed to load news. Please try again.')),

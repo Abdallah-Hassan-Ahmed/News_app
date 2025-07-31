@@ -1,25 +1,15 @@
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/cubits/session/session_state.dart';
 import 'package:news_app/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class SessionState {}
-
-class SessionInitial extends SessionState {}
-
-class SessionAuthenticated extends SessionState {
-  final UserModel user;
-
-  SessionAuthenticated(this.user);
-}
-
-class SessionUnauthenticated extends SessionState {}
 
 class SessionCubit extends Cubit<SessionState> {
   SessionCubit() : super(SessionInitial());
 
   static const _sessionKey = "user_session";
-  static const _sessionDurationInMinutes = 1440; // يوم واحد
+  static const _sessionDurationInMinutes = 1440; 
 
   void checkSession() async {
     final prefs = await SharedPreferences.getInstance();
@@ -56,7 +46,6 @@ class SessionCubit extends Cubit<SessionState> {
         emit(SessionAuthenticated(user));
       }
     } catch (e) {
-      print("❌ Error reading session: $e");
       emit(SessionUnauthenticated());
     }
   }
@@ -66,7 +55,6 @@ class SessionCubit extends Cubit<SessionState> {
 
     final sessionJson = prefs.getString(_sessionKey);
     if (sessionJson == null) {
-      print("🚫 sessionJson is null");
       emit(SessionUnauthenticated());
       return;
     }
@@ -75,12 +63,7 @@ class SessionCubit extends Cubit<SessionState> {
       final sessionData = jsonDecode(sessionJson);
       final loginTime = sessionData['loginTime'];
 
-      print("📢 Updating session user...");
-      print("🔸 Login time: $loginTime");
-      print("🔸 Updated user: ${updatedUser.toJson()}");
-
       if (loginTime == null) {
-        print("❌ loginTime is null");
         emit(SessionUnauthenticated());
         return;
       }
@@ -92,10 +75,8 @@ class SessionCubit extends Cubit<SessionState> {
 
       await prefs.setString(_sessionKey, jsonEncode(updatedSession));
 
-      print("✅ Session updated successfully");
       emit(SessionAuthenticated(updatedUser));
     } catch (e) {
-      print("❌ Error updating session: $e");
       emit(SessionUnauthenticated());
     }
   }

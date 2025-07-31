@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/views/home/update_profile_screen.dart';
-import 'package:news_app/views/home/change_password_screen.dart';
-import 'package:news_app/views/home/home_screen.dart';
-import 'package:news_app/views/login_screen.dart';
+import 'package:news_app/views/settings%20view/update_profile_screen.dart';
+import 'package:news_app/views/settings%20view/change_password_screen.dart';
+import 'package:news_app/views/auth%20view/login_screen.dart';
 import 'package:news_app/cubits/auth/auth_cubit.dart';
 import 'package:news_app/cubits/auth/auth_state.dart';
-import 'package:news_app/views/home/saved_articles_screen.dart';
+import 'package:news_app/views/settings%20view/saved_articles_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

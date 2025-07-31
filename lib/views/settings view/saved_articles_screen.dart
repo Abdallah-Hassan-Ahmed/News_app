@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/cubits/bookmarks/bookmarks_cubit.dart';
 import 'package:news_app/models/article_model.dart';
-import 'package:news_app/widgets/news_tile.dart';
+import 'package:news_app/widgets/home/news_title.dart';
 
 class SavedArticlesScreen extends StatelessWidget {
   const SavedArticlesScreen({super.key});
